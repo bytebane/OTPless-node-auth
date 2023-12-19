@@ -86,3 +86,7 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+/.timetracker
+/temp
+/package-lock.json
