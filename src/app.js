@@ -1,6 +1,5 @@
 import express from 'express'
 import { UserDetail } from 'otpless-node-js-auth-sdk'
-import axios from './axios_instance.js'
 
 // Load environment variables
 const clientId = process.env.AUTH_CLIENT_ID || ''
