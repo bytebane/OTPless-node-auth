@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "99dfac3e-88fd-4b93-bca4-6b7861789f38",
+		"name": "OTPless-Node-API",
+		"description": "Set the `Current Value` for the `Variables` before making API calls.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17752016"
+	},
+	"item": [
+		{
+			"name": "Send-Magic-Link",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "mobile",
+							"value": "{{mobile}}",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/magic-link/:channel",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"magic-link",
+						":channel"
+					],
+					"variable": [
+						{
+							"key": "channel",
+							"value": "WHATSAPP",
+							"description": "SMS || WHATSAPP"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify-Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "RECEIVED_CODE",
+							"description": "Mandatory",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/verify-code",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"verify-code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify-Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "RECEIVED_TOKEN",
+							"description": "Mandatory",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/verify-token",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"verify-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send-OTP-SMS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "orderId",
+							"value": "orderId",
+							"description": "optional",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "hash",
+							"value": "Application_Hash_ONLY_FOR_SMS",
+							"description": "optional",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "mobile",
+							"value": "{{mobile}}",
+							"description": "Either --- IF mobile select channel SMS || WHATSAPP || SMS,WHATSAPP",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"description": "Or Mandatory --- IF email select channel EMAIL",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/otp/send/:channel",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"otp",
+						"send",
+						":channel"
+					],
+					"variable": [
+						{
+							"key": "channel",
+							"value": "SMS,WHATSAPP",
+							"description": "SMS|| WHATSAPP||SMS,WHATSAPP||EMAIL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resend-OTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "orderId",
+							"value": "orderID",
+							"description": "Mandatory",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/otp/resend",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"otp",
+						"resend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify-OTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "orderId",
+							"value": "orderID",
+							"description": "Mandatory",
+							"type": "text"
+						},
+						{
+							"key": "otp",
+							"value": "OTP",
+							"description": "Mandatory",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"description": "Either",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "mobile",
+							"value": "{{mobile}}",
+							"description": "Or Mandatory",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/otp/verify",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"otp",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "YOUR_EMAIL_ID",
+			"type": "string"
+		},
+		{
+			"key": "mobile",
+			"value": "YOUR_MOBILE_NUMBER",
+			"type": "string"
+		}
+	]
+}
