@@ -2,6 +2,8 @@
 
 This is a demo for [OTPless](https://otpless.com) authentication Backend API integration in NodeJS.
 
+>> To integrate the same using TypeScript, check out [this](https://github.com/bytebane/OTPless-node-auth/tree/typescript) branch.
+
 ## Try it out
 
 ### Step 1
