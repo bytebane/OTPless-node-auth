@@ -23,7 +23,19 @@ const errorHandler = (err, req, res, next) => {
 	}
 	res.status(500).send('Internal Server Error')
 }
+app.use(errorHandler)
 
+// ? Express server configuration
+app.disable('x-powered-by')
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+// ? Routes
+/**
+ * * Home Route
+ * @request { none }
+ * @response { success: Boolean, message: String }
+ */
 app.get('/', (req, res) => {
 	res.status(200).send({
 		success: true,
@@ -150,7 +162,7 @@ app.post('/verify-token', async (req, res) => {
  */
 app.post('/otp/send/:channel', async (req, res) => {
 	const channel = req.params.channel
-	const { mobile, email, orderId, hash, otpLength } = req.body
+	const { mobile, email, orderId, hash, expiry, otpLength } = req.body
 	//? Validate the request
 	if (!mobile && !email) {
 		return res.status(400).send({
@@ -166,7 +178,7 @@ app.post('/otp/send/:channel', async (req, res) => {
 	}
 	try {
 		//? Send an OTP to the user via Email or SMS or WhatsApp or both SMS and WhatsApp.
-		const response = await UserDetail.sendOTP(mobile ?? email, orderId, hash, clientId, clientSecret, channel, parseInt(otpLength ?? '6'))
+		const response = await UserDetail.sendOTP(mobile, email, channel, hash, orderId, expiry ?? 60, otpLength ?? 6, clientId, clientSecret)
 		console.log('Success', response)
 		// ? Handle the error if any
 		if (response?.errorMessage) {
@@ -202,7 +214,7 @@ app.post('/otp/resend', async (req, res) => {
 	}
 	try {
 		// ? Resend the OTP
-		const response = UserDetail.resendOTP(orderId, clientId, clientSecret)
+		const response = await UserDetail.resendOTP(orderId, clientId, clientSecret)
 		console.log('Success', response)
 		// ? Handle the error if any
 		if (response?.errorMessage) {
@@ -245,7 +257,7 @@ app.post('/otp/verify', async (req, res) => {
 
 	// ? Verify the OTP
 	try {
-		const response = await UserDetail.verifyOTP(mobile ?? email, orderId, otp, clientId, clientSecret)
+		const response = await UserDetail.verifyOTP(email, mobile, orderId, otp, clientId, clientSecret)
 		console.log('Success', response)
 		// ? Handle the error if any
 		if (response?.errorMessage) {
@@ -265,12 +277,5 @@ app.post('/otp/verify', async (req, res) => {
 		})
 	}
 })
-
-// ? Express server configuration
-app.disable('x-powered-by')
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-app.use(errorHandler)
 
 export default app

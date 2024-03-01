@@ -54,17 +54,19 @@ await UserDetails.magicLink(mobile, email, redirectURI, channel, clientId, clien
 // Verify code from magic link's approved redirected URI's params
 await UserDetails.verifyCode(code, clientId, clientSecret)
 
-// Verify token from frontend (OTPless)
+// Verify token from OTPless frontend SDK
 await UserDetails.verifyToken(token, clientId, clientSecret)
 
 // Send OTP
-await UserDetails.sendOTP(sendTo, orderId, hash, clientId, clientSecret, channel, otpLength)
+await UserDetails.sendOTP(phoneNumber, email, channel, hash, orderId, expiry, otpLength, clientId, clientSecret)
 
 // Resend OTP
 await UserDetails.resendOTP(orderId, clientId, clientSecret)
 
 // Verify OTP
-await UserDetails.verifyOTP(sendTo, orderId, otp, clientId, clientSecret)
+await UserDetails.verifyOTP(email, phoneNumber, orderId, otp, clientId, clientSecret)
 ```
+
+> Note: Arguments for all methods are positional and should be in the same order, to skip optional arguments use `null` or `undefined`.
 
 [***Official Documentation***](https://otpless.com/platforms/magic-link?sdkTab=Node)
