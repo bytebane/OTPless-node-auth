@@ -69,4 +69,4 @@ await UserDetails.verifyOTP(email, phoneNumber, orderId, otp, clientId, clientSe
 
 > Note: Arguments for all methods are positional and should be in the same order, to skip optional arguments use `null` or `undefined`.
 
-[***Official Documentation***](https://otpless.com/platforms/magic-link?sdkTab=Node)
+[***Official Documentation***](https://otpless.com/platforms/node)
